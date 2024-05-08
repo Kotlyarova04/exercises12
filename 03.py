@@ -73,7 +73,7 @@ class Date:
 
 
 class User:
-    def __init__(self, id, nick_name, first_name=None, last_name=None, middle_name=None, gender=None):
+    def __init__(self, id, nick_name, first_name, last_name, middle_name, gender):
         self.id = id
         self.nick_name = nick_name
         self.first_name = first_name
@@ -82,10 +82,10 @@ class User:
         self.gender = gender
 
     def __repr__(self):
-        if self.gender is not None:
-            return f"ID: {self.id} LOGIN: {self.nick_name} NAME: {self.first_name} {self.last_name} {self.middle_name} GENDER: {self.gender}"
+        if self.gender == '':
+            return f"ID: {self.id} LOGIN: {self.nick_name} NAME: {self.last_name} {self.first_name}  {self.middle_name}"
         else:
-            return f"ID: {self.id} LOGIN: {self.nick_name} NAME: {self.first_name} {self.last_name} {self.middle_name}"
+            return f"ID: {self.id} LOGIN: {self.nick_name} NAME: {self.last_name} {self.first_name} {self.middle_name} GENDER: {self.gender}"
 
 
 class Meeting:
@@ -117,7 +117,11 @@ class Meeting:
         return total
 
     def __repr__(self):
-        return f"Рабочая встреча {self.id}\n{self.date} {self.title}\n{(employee for employee in self.employees)}"
+        text = f"Рабочая встреча {self.id}\n{self.date} {self.title}\n"
+        for employee in self.employees:
+            text += f'{employee}\n'
+        return text
+
 
 
 Load.write('meetings.txt', 'persons.txt', 'pers_meetings.txt')
